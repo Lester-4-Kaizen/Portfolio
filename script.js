@@ -1,8 +1,4 @@
-// Import EmailJS library
-const emailjs = require("emailjs-com")
-
 document.addEventListener("DOMContentLoaded", () => {
-  emailjs.init("YOUR_PUBLIC_KEY")
   // Navigation Toggle
   const navToggle = document.getElementById("nav-toggle")
   const navMenu = document.getElementById("nav-menu")
@@ -81,45 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contact-form")
 
   contactForm.addEventListener("submit", (e) => {
-    e.preventDefault()
-
-    // Get form values
-    const name = document.getElementById("name").value
-    const email = document.getElementById("email").value
-    const message = document.getElementById("message").value
-
-    // Show loading state
     const submitButton = contactForm.querySelector('button[type="submit"]')
     const originalButtonText = submitButton.textContent
     submitButton.textContent = "Sending..."
     submitButton.disabled = true
-
-    // Send email using EmailJS
-    emailjs
-      .send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-        from_name: name,
-        from_email: email,
-        message: message,
-        to_email: "lester.j.evangelista@gmail.com",
-      })
-      .then(() => {
-        // Success
-        alert(`Thank you for your message, ${name}! I'll get back to you soon.`)
-
-    contactForm.reset()
-    })
-      .catch((error) => {
-        // Error
-        console.error("EmailJS Error:", error)
-        alert(
-          "Sorry, there was an error sending your message. Please try again or email me directly at lester.j.evangelista@gmail.com",
-        )
-      })
-      .finally(() => {
-        // Reset button state
-        submitButton.textContent = originalButtonText
-        submitButton.disabled = false
-      })
   })
 
   // Intersection Observer for fade-in animations
@@ -153,4 +114,5 @@ document.addEventListener("DOMContentLoaded", () => {
     footerText.textContent = footerText.textContent.replace("2025", currentYear)
   }
 })
+
 
