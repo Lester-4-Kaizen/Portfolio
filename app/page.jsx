@@ -83,10 +83,33 @@ export default function Portfolio() {
 
     // Contact form
     const contactForm = document.getElementById("contactForm")
-    contactForm?.addEventListener("submit", (e) => {
-      e.preventDefault()
-      alert("Thank you for your message! I will get back to you soon.")
-      e.target.reset()
+    contactForm?.addEventListener("submit", async (e) => {
+      const formData = new FormData(e.target)
+      const submitButton = contactForm.querySelector('button[type="submit"]')
+
+      submitButton.disabled = true
+      submitButton.textContent = "Sending..."
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData,
+        })
+
+        const data = await response.json()
+
+        if (data.success) {
+           alert("Thank you for your message! I will get back to you soon.")
+           e.target.reset()
+        } else {
+           throw new Error(data.message || "Something went wrong")
+        }
+      } catch (error) {
+        alert("Oops! There was a problem sending your message. Please try again or email me directly.")
+      } finally {
+        submitButton.disabled = false
+        submitButton.textContent = "Send Message"
+      }
     })
 
     return () => {
@@ -422,14 +445,17 @@ export default function Portfolio() {
                 Feel free to reach out and let's create something amazing together!
               </p>
               <form id="contactForm">
+                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE" />
+                <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio" />
+                <input type="hidden" name="from_name" value="Portfolio Contact Form" />
                 <div className="form-group">
-                  <input type="text" placeholder="Your Name" required />
+                  <input type="text" name="name" placeholder="Your Name" required />
                 </div>
                 <div className="form-group">
-                  <input type="email" placeholder="Your Email" required />
+                  <input type="email" name="email" placeholder="Your Email" required />
                 </div>
                 <div className="form-group">
-                  <textarea placeholder="Your Message" rows={5} required></textarea>
+                  <textarea name="message" placeholder="Your Message" rows={5} required></textarea>
                 </div>
                 <div className="button">
                   <button type="submit">Send Message</button>
@@ -469,3 +495,4 @@ export default function Portfolio() {
     </>
   )
 }
+
