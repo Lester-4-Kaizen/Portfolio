@@ -486,7 +486,7 @@ export default function Portfolio() {
       <footer>
         <div className="text">
           <span>
-            Created by <a href="#home">Javier</a> | ©2025 All Rights Reserved
+            Created by <a href="#home">Lester John Evangelista</a> | ©2025 All Rights Reserved
           </span>
         </div>
       </footer>
@@ -495,4 +495,5 @@ export default function Portfolio() {
     </>
   )
 }
+
 
