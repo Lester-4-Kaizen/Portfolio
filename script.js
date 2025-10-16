@@ -76,11 +76,41 @@ document.addEventListener("DOMContentLoaded", () => {
   // Contact form handling
   const contactForm = document.getElementById("contact-form")
 
-  contactForm.addEventListener("submit", (e) => {
+  contactForm.addEventListener("submit", async (e) => {
+    e.preventDefault()
+    const formData = new FormData(contactForm)
+    const statusDiv = document.getElementById("form-status")
     const submitButton = contactForm.querySelector('button[type="submit"]')
-    const originalButtonText = submitButton.textContent
-    submitButton.textContent = "Sending..."
+
+    // Disable submit button and show loading state
     submitButton.disabled = true
+    submitButton.textContent = "Sending..."
+    statusDiv.textContent = ""
+    statusDiv.className = "form-status"
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        statusDiv.textContent = "Thank you for your message! I'll get back to you soon."
+        statusDiv.className = "form-status success"
+        contactForm.reset()
+      } else {
+        throw new Error(data.message || "Something went wrong")
+      }
+    } catch (error) {
+      statusDiv.textContent = "Oops! There was a problem sending your message. Please try again or email me directly."
+      statusDiv.className = "form-status error"
+    } finally {
+      // Re-enable submit button
+      submitButton.disabled = false
+      submitButton.textContent = "Send Message"
+    }
   })
 
   // Intersection Observer for fade-in animations
@@ -114,5 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
     footerText.textContent = footerText.textContent.replace("2025", currentYear)
   }
 })
+
 
 
