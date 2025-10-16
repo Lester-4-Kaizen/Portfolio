@@ -393,10 +393,18 @@ export default function Portfolio() {
                 <i className="fas fa-graduation-cap"></i> Education
               </h3>
               <div className="resume-item">
-                <h4>BS Computer Science</h4>
-                <p className="institution">Technological University of the Philippines (TUP) – Manila</p>
-                <p className="year">Expected Graduation: 2026–2027</p>
+                <h4>Bachelor of Science in Computer Science</h4>
+                <p className="institution">Technological University of the Philippines (TUP), Ayala Blvd, Ermita, Manila</p>
+                <p className="year">Expected Graduation: 2023–2026</p>
                 <p className="description">3rd Year Student | Dean's Lister</p>
+                <h4>Senior High School</h4>
+                <p className="institution">Rosebelle Academy of Tarlac Inc., Victoria, Tarlac</p>
+                <p className="year">Graduated: 2020–2022</p>
+                <p className="description">Graduated Senior High School with honors consecutively</p>
+                <h4>Junior High School</h4>
+                <p className="institution">Exequiel R. Lina High School, Nueva Ecija, Licab</p>
+                <p className="year">Graduated: 2016–2020</p>
+                <p className="description">Graduated Junior High School with honors consecutively</p>
               </div>
             </div>
 
@@ -495,5 +503,6 @@ export default function Portfolio() {
     </>
   )
 }
+
 
 
