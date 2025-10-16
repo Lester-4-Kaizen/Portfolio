@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>John - Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav id="nav" class="nav">
+      <div class="nav-container">
+        <a href="#home" class="nav-logo">Lester</a>
+        <button
+          id="nav-toggle"
+          class="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul id="nav-menu" class="nav-menu">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">
+            Hi, I'm <span class="highlight">Lester John</span>
+          </h1>
+          <p class="hero-subtitle">
+            Full Stack Developer & Creative Problem Solver
+          </p>
+          <p class="hero-description">
+            A passionate Computer Science student at Technological University of
+            the Philippines (TUP) – Manila. I find creativity in solving
+            problems through code and love building interactive experiences. My
+            journey in programming started when I discovered how a few lines of
+            code can bring ideas to life, especially in creating games where
+            logic meets imagination.
+          </p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">View My Projects</a>
+            <a href="#contact" class="btn btn-secondary">Contact Me</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-decoration">
+        <div class="decoration-circle circle-1"></div>
+        <div class="decoration-circle circle-2"></div>
+        <div class="decoration-circle circle-3"></div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              I'm currently a 3rd-year BS Computer Science student at the
+              Technological University of the Philippines (TUP) – Manila,
+              expected to graduate in 2026–2027. My passion for programming
+              ignited when I realized how powerful code can be in transforming
+              ideas into reality.
+            </p>
+            <p>
+              What excites me most is game development, where logic meets
+              imagination. I enjoy exploring different areas of computer
+              science, continuously learning new technologies, and building
+              projects that combine creativity with functionality. I'm a Dean's
+              Lister, committed to excellence in both academics and practical
+              application.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="skills">
+      <div class="container">
+        <h2 class="section-title">Skills Reflect My Knowledge</h2>
+        <div class="skills-grid">
+          <div class="skill-category">
+            <div class="skill-icon">💻</div>
+            <h3>Frontend Development</h3>
+            <ul class="skill-list">
+              <li>HTML5 & CSS3</li>
+              <li>JavaScript (ES6+)</li>
+              <li>React & Vue.js</li>
+              <li>Responsive Design</li>
+            </ul>
+          </div>
+          <div class="skill-category">
+            <div class="skill-icon">⚙️</div>
+            <h3>Backend Development</h3>
+            <ul class="skill-list">
+              <li>Node.js & Express</li>
+              <li>Python & Django</li>
+              <li>RESTful APIs</li>
+              <li>Database Design</li>
+            </ul>
+          </div>
+          <div class="skill-category">
+            <div class="skill-icon">🛠️</div>
+            <h3>Tools & Technologies</h3>
+            <ul class="skill-list">
+              <li>Git & GitHub</li>
+              <li>Docker</li>
+              <li>CI/CD</li>
+              <li>Agile Methodologies</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects">
+      <div class="container">
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-image">
+              <div class="project-placeholder">🚀</div>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">E-Commerce Website</h3>
+              <p class="project-description">
+                A full-featured online shopping platform with product catalog,
+                cart functionality, and checkout system.
+              </p>
+              <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">View Demo</a>
+                <a href="#" class="project-link">Source Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image">
+              <div class="project-placeholder">📱</div>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Chat Application</h3>
+              <p class="project-description">
+                Real-time messaging application with user authentication and
+                message history features.
+              </p>
+              <div class="project-tags">
+                <span class="tag">JavaScript</span>
+                <span class="tag">PHP</span>
+                <span class="tag">SQL</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">View Demo</a>
+                <a href="#" class="project-link">Source Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-image">
+              <div class="project-placeholder">🎨</div>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Banking System</h3>
+              <p class="project-description">
+                Secure banking application with account management,
+                transactions, and security features.
+              </p>
+              <div class="project-tags">
+                <span class="tag">C++</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Security</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="project-link">View Demo</a>
+                <a href="#" class="project-link">Source Code</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2 class="section-title">Contact Me</h2>
+        <div class="contact-content">
+          <div class="contact-info">
+            <p class="contact-text">
+              I'm always open to discussing new projects, creative ideas, or
+              opportunities to be part of your vision. Feel free to reach out
+              and let's create something amazing together!
+            </p>
+            <div class="contact-details">
+              <div class="contact-item">
+                <span class="contact-icon">📧</span>
+                <span>lester.j.evangelista@example.com</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">📱</span>
+                <span>+63 (945) 754 3888</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                <span>Parang Marikina, Philippines</span>
+              </div>
+            </div>
+          </div>
+          <form id="contact-form" class="contact-form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 Javier. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#" aria-label="GitHub">GitHub</a>
+          <a href="#" aria-label="Facebook">Facebook</a>
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="Telegram">Telegram</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
