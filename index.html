@@ -220,11 +220,11 @@
               </div>
             </div>
           </div>
-          <form id="contact-form" class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <form id="contact-form" class="contact-form">
+            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+            <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio">
+            <input type="hidden" name="from_name" value="Portfolio Contact Form">
             <input type="hidden" name="form-name" value="contact">
-            <p style="display: none;">
-              <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-            </p>
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" required />
@@ -242,6 +242,7 @@
                 required
               ></textarea>
             </div>
+             <div id="form-status" class="form-status"></div>
             <button type="submit" class="btn btn-primary">Send Message</button>
           </form>
         </div>
@@ -263,6 +264,7 @@
     <script src="script.js"></script>
   </body>
 </html>
+
 
 
 
