@@ -177,6 +177,9 @@ nav.scrolled {
   color: white;
   display: none;
   font-size: 2rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .nav-container .links {
@@ -218,6 +221,7 @@ nav.scrolled {
   position: fixed;
   top: 0;
   transform: translateY(-500px);
+  visibility: hidden;
   width: 100%;
   height: auto;
   backdrop-filter: blur(4px) brightness(40%);
@@ -227,6 +231,7 @@ nav.scrolled {
 
 .dropdown.active {
   transform: translateY(0);
+  visibility: visible;
 }
 
 .dropdown .links {
@@ -776,6 +781,12 @@ section .main-container {
   margin-bottom: 20px;
 }
 
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ddd;
+}
+
 .form-group input,
 .form-group textarea {
   width: 100%;
@@ -798,6 +809,15 @@ section .main-container {
 .form-group input::placeholder,
 .form-group textarea::placeholder {
   color: #999;
+}
+
+.form-status {
+  color: #ddd;
+  line-height: 1.5;
+}
+
+.form-status:empty {
+  display: none;
 }
 
 .contact-info {
