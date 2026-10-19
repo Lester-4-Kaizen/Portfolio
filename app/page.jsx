@@ -4,34 +4,42 @@ import { useEffect } from "react"
 
 export default function Portfolio() {
   useEffect(() => {
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", function (e) {
-        e.preventDefault()
-        const target = document.querySelector(this.getAttribute("href"))
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth" })
-        }
-      })
-    })
-
-    // Mobile menu toggle
     const hamburg = document.querySelector(".hamburg")
     const cancel = document.querySelector(".cancel")
     const dropdown = document.querySelector(".dropdown")
+    const anchors = document.querySelectorAll('a[href^="#"]')
+    const anchorHandlers = []
 
     const hamburgHandler = () => {
       dropdown?.classList.add("active")
+      hamburg?.setAttribute("aria-expanded", "true")
     }
 
     const cancelHandler = () => {
       dropdown?.classList.remove("active")
+      hamburg?.setAttribute("aria-expanded", "false")
     }
 
     hamburg?.addEventListener("click", hamburgHandler)
     cancel?.addEventListener("click", cancelHandler)
 
-    // Navbar scroll effect
+    anchors.forEach((anchor) => {
+      const handleAnchorClick = (event) => {
+        const href = anchor.getAttribute("href")
+        const target = href && href !== "#" ? document.getElementById(href.slice(1)) : null
+
+        if (target) {
+          event.preventDefault()
+          target.scrollIntoView({ behavior: "smooth" })
+          dropdown?.classList.remove("active")
+          hamburg?.setAttribute("aria-expanded", "false")
+        }
+      }
+
+      anchor.addEventListener("click", handleAnchorClick)
+      anchorHandlers.push([anchor, handleAnchorClick])
+    })
+
     const handleScroll = () => {
       const nav = document.querySelector("nav")
       if (window.scrollY > 50) {
@@ -41,81 +49,69 @@ export default function Portfolio() {
       }
     }
 
-    window.addEventListener("scroll", handleScroll)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
 
-    // Typewriter effect
     const typewriterText = document.querySelector(".typewriter-text")
     const words = ["Developer", "Programmer", "Problem Solver", "Game Enthusiast"]
     let wordIndex = 0
     let charIndex = 0
     let isDeleting = false
+    let typewriterTimer
 
     function type() {
       const currentWord = words[wordIndex]
 
       if (isDeleting) {
-        if (typewriterText) {
-          typewriterText.textContent = currentWord.substring(0, charIndex - 1)
-        }
+        typewriterText.textContent = currentWord.substring(0, charIndex - 1)
         charIndex--
       } else {
-        if (typewriterText) {
-          typewriterText.textContent = currentWord.substring(0, charIndex + 1)
-        }
+        typewriterText.textContent = currentWord.substring(0, charIndex + 1)
         charIndex++
       }
 
       if (!isDeleting && charIndex === currentWord.length) {
         isDeleting = true
-        setTimeout(type, 2000)
+        typewriterTimer = window.setTimeout(type, 2000)
       } else if (isDeleting && charIndex === 0) {
         isDeleting = false
         wordIndex = (wordIndex + 1) % words.length
-        setTimeout(type, 500)
+        typewriterTimer = window.setTimeout(type, 500)
       } else {
-        setTimeout(type, isDeleting ? 50 : 100)
+        typewriterTimer = window.setTimeout(type, isDeleting ? 50 : 100)
       }
     }
 
     if (typewriterText) {
-      setTimeout(type, 1000)
+      typewriterTimer = window.setTimeout(type, 1000)
     }
 
-    // Contact form
     const contactForm = document.getElementById("contactForm")
-    contactForm?.addEventListener("submit", async (e) => {
-      const formData = new FormData(e.target)
-      const submitButton = contactForm.querySelector('button[type="submit"]')
+    const formStatus = document.getElementById("form-status")
+    const handleContactSubmit = (event) => {
+      event.preventDefault()
+      const formData = new FormData(contactForm)
+      const name = String(formData.get("name") || "")
+      const email = String(formData.get("email") || "")
+      const message = String(formData.get("message") || "")
+      const subject = `Portfolio contact from ${name}`
+      const body = `Name: ${name}\nEmail: ${email}\n\n${message}`
 
-      submitButton.disabled = true
-      submitButton.textContent = "Sending..."
-
-      try {
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          body: formData,
-        })
-
-        const data = await response.json()
-
-        if (data.success) {
-           alert("Thank you for your message! I will get back to you soon.")
-           e.target.reset()
-        } else {
-           throw new Error(data.message || "Something went wrong")
-        }
-      } catch (error) {
-        alert("Oops! There was a problem sending your message. Please try again or email me directly.")
-      } finally {
-        submitButton.disabled = false
-        submitButton.textContent = "Send Message"
+      if (formStatus) {
+        formStatus.textContent =
+          "Your email app should open with your message. If it doesn't, email lester.j.evangelista@gmail.com."
       }
-    })
+      window.location.href = `mailto:lester.j.evangelista@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    }
+    contactForm?.addEventListener("submit", handleContactSubmit)
 
     return () => {
       hamburg?.removeEventListener("click", hamburgHandler)
       cancel?.removeEventListener("click", cancelHandler)
+      anchorHandlers.forEach(([anchor, handler]) => anchor.removeEventListener("click", handler))
       window.removeEventListener("scroll", handleScroll)
+      contactForm?.removeEventListener("submit", handleContactSubmit)
+      window.clearTimeout(typewriterTimer)
     }
   }, [])
 
@@ -123,9 +119,9 @@ export default function Portfolio() {
     <>
       <nav>
         <div className="nav-container">
-          <div className="logo">
+          <a href="#home" className="logo">
             <span>Lester</span>
-          </div>
+          </a>
           <div className="links">
             <div className="link">
               <a href="#home">Home</a>
@@ -146,7 +142,9 @@ export default function Portfolio() {
               <a href="#contact">Contact</a>
             </div>
           </div>
-          <i className="fa-solid fa-bars hamburg"></i>
+          <button className="hamburg" type="button" aria-label="Open navigation menu" aria-expanded="false">
+            <i className="fa-solid fa-bars" aria-hidden="true"></i>
+          </button>
         </div>
         <div className="dropdown">
           <div className="links">
@@ -156,7 +154,9 @@ export default function Portfolio() {
             <a href="#projects">Projects</a>
             <a href="#resume">Resume</a>
             <a href="#contact">Contact</a>
-            <i className="fa-solid fa-xmark cancel"></i>
+            <button className="cancel" type="button" aria-label="Close navigation menu">
+              <i className="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
       </nav>
@@ -240,7 +240,9 @@ export default function Portfolio() {
                 practical application.
               </p>
               <div className="button">
-                <button>Download CV</button>
+                <button onClick={() => document.getElementById("resume")?.scrollIntoView({ behavior: "smooth" })}>
+                  View Resume
+                </button>
               </div>
             </div>
           </div>
@@ -431,11 +433,6 @@ export default function Portfolio() {
               </div>
             </div>
 
-            <div className="button">
-              <button>
-                <i className="fas fa-download"></i> Download Resume
-              </button>
-            </div>
           </div>
         </div>
       </section>
@@ -453,18 +450,25 @@ export default function Portfolio() {
                 Feel free to reach out and let's create something amazing together!
               </p>
               <form id="contactForm">
-                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE" />
-                <input type="hidden" name="subject" value="New Contact Form Submission from Portfolio" />
-                <input type="hidden" name="from_name" value="Portfolio Contact Form" />
                 <div className="form-group">
-                  <input type="text" name="name" placeholder="Your Name" required />
+                  <label htmlFor="contact-name">Your Name</label>
+                  <input id="contact-name" type="text" name="name" placeholder="Your Name" required />
                 </div>
                 <div className="form-group">
-                  <input type="email" name="email" placeholder="Your Email" required />
+                  <label htmlFor="contact-email">Your Email</label>
+                  <input id="contact-email" type="email" name="email" placeholder="Your Email" required />
                 </div>
                 <div className="form-group">
-                  <textarea name="message" placeholder="Your Message" rows={5} required></textarea>
+                  <label htmlFor="contact-message">Your Message</label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    placeholder="Your Message"
+                    rows={5}
+                    required
+                  ></textarea>
                 </div>
+                <p id="form-status" className="form-status" role="status" aria-live="polite"></p>
                 <div className="button">
                   <button type="submit">Send Message</button>
                 </div>
@@ -494,15 +498,11 @@ export default function Portfolio() {
       <footer>
         <div className="text">
           <span>
-            Created by <a href="#home">Lester John Evangelista</a> | ©2025 All Rights Reserved
+            Created by <a href="#home">Lester John Evangelista</a> | ©2026 All Rights Reserved
           </span>
         </div>
       </footer>
 
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     </>
   )
 }
-
-
-
